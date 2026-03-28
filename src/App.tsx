@@ -325,15 +325,15 @@ export default function App() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1 }}
-                  className="relative z-10 rounded-[100px] overflow-hidden border-[1px] border-white/20 shadow-2xl"
+                  className="relative z-10 rounded-[100px] overflow-hidden border-[1px] border-white/20 shadow-2xl group"
                 >
                   <img 
-                    src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800&h=1100" 
+                    src="Dr Asad.jpg" 
                     alt="Dr. Asad Ali" 
-                    className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                    className="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-accent/10 mix-blend-overlay" />
+                  <div className="absolute inset-0 bg-accent/10 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-700" />
                 </motion.div>
                 
                 {/* Signature Card */}
@@ -482,7 +482,7 @@ export default function App() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
               {[
-                "https://images.unsplash.com/photo-1629909606655-324f018118af?auto=format&fit=crop&q=80&w=1000&h=1000",
+                "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&q=80&w=1000&h=1000",
                 "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1000&h=1000",
                 "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=1000&h=1000",
                 "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1000&h=1000",
@@ -676,7 +676,7 @@ export default function App() {
               <div className="flex gap-8">
                 {[
                   { name: 'Instagram', url: 'https://www.instagram.com/dentalfix_by_dr.asadali/' },
-                  { name: 'Facebook', url: 'https://www.facebook.com/dentalfixbydrasadali' },
+                  { name: 'Facebook', url: 'https://www.facebook.com/people/Dental-Fix-By-Dr-Asad-Ali/61559132816202/?ref=NONE_xav_ig_profile_page_web#' },
                   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/dr-asad-ali' },
                   { name: 'WhatsApp', url: 'https://wa.me/923126963668' }
                 ].map((social) => (
