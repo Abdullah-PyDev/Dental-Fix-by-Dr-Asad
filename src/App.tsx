@@ -342,7 +342,7 @@ export default function App() {
                   initial={{ y: 50, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.5 }}
-                  className="absolute -bottom-16 -right-8 md:-right-16 bg-white p-12 rounded-[60px] shadow-2xl max-w-sm"
+                  className="absolute -bottom-16 -right-8 md:-right-16 bg-white p-12 rounded-[60px] shadow-2xl max-w-sm z-20"
                 >
                   <div className="mb-6">
                     <span className="text-accent font-serif italic text-4xl block mb-1">Dr. Asad Ali</span>
