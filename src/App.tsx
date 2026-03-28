@@ -94,15 +94,15 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-blue-100 selection:text-blue-900">
       {/* Navigation */}
-      <nav className={`fixed top-0 z-50 w-full transition-all duration-700 ${scrolled ? "bg-white/80 backdrop-blur-2xl py-4 shadow-[0_2px_20px_-10px_rgba(0,0,0,0.1)]" : "bg-transparent py-8"}`}>
+      <nav className={`fixed top-0 z-50 w-full transition-all duration-700 ${scrolled ? "bg-white/90 backdrop-blur-2xl py-3 md:py-4 shadow-[0_2px_20px_-10px_rgba(0,0,0,0.1)]" : "bg-transparent py-6 md:py-8"}`}>
         <div className="container mx-auto px-4 md:px-12 flex items-center justify-between">
-          <div className="flex items-center gap-4 group cursor-pointer">
-            <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-accent shadow-2xl group-hover:rotate-12 transition-transform duration-500">
-              <ShieldCheck size={28} strokeWidth={1.2} />
+          <div className="flex items-center gap-3 md:gap-4 group cursor-pointer">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-primary rounded-xl md:rounded-2xl flex items-center justify-center text-accent shadow-2xl group-hover:rotate-12 transition-transform duration-500">
+              <ShieldCheck size={24} className="md:w-[28px] md:h-[28px]" strokeWidth={1.2} />
             </div>
             <div>
-              <span className="text-2xl font-serif font-bold tracking-tight block leading-none text-primary">DENTAL FIX</span>
-              <span className="text-[9px] uppercase tracking-[0.3em] text-accent font-black">By Dr. Asad Ali</span>
+              <span className="text-xl md:text-2xl font-serif font-bold tracking-tight block leading-none text-primary">DENTAL FIX</span>
+              <span className="text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-accent font-black">By Dr. Asad Ali</span>
             </div>
           </div>
 
@@ -118,75 +118,123 @@ export default function App() {
           </div>
 
           {/* Mobile Toggle */}
-          <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X /> : <Menu />}
+          <button className="md:hidden p-2 text-primary" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay */}
         {isMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="absolute top-full left-0 w-full bg-white border-t border-slate-100 p-6 flex flex-col gap-4 shadow-xl md:hidden"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            className="fixed inset-0 z-[60] bg-white flex flex-col p-8 md:hidden"
           >
-            <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">Services</a>
-            <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">About</a>
-            <a href="#testimonials" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">Reviews</a>
-            <a href="#gallery" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">Clinic</a>
-            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="bg-blue-600 text-white px-6 py-3 rounded-xl text-center font-bold">Book Now</a>
+            <div className="flex justify-between items-center mb-16">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-accent">
+                  <ShieldCheck size={24} strokeWidth={1.2} />
+                </div>
+                <span className="text-xl font-serif font-bold text-primary">DENTAL FIX</span>
+              </div>
+              <button onClick={() => setIsMenuOpen(false)} className="p-2 text-primary">
+                <X size={32} />
+              </button>
+            </div>
+            
+            <div className="flex flex-col gap-8">
+              {["services", "about", "testimonials", "gallery"].map((item, i) => (
+                <motion.a 
+                  key={item}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  href={`#${item}`} 
+                  onClick={() => setIsMenuOpen(false)} 
+                  className="text-4xl font-serif font-medium text-primary capitalize"
+                >
+                  {item}
+                </motion.a>
+              ))}
+              <motion.a 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                href="#contact" 
+                onClick={() => setIsMenuOpen(false)} 
+                className="mt-8 bg-accent text-primary px-8 py-5 rounded-full text-center font-black uppercase tracking-widest text-xs"
+              >
+                Book Private Consultation
+              </motion.a>
+            </div>
+
+            <div className="mt-auto pt-12 border-t border-slate-100">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-black mb-6">Connect With Us</p>
+              <div className="flex gap-6">
+                <a href="https://www.instagram.com/dentalfixbydrasadali/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-primary">
+                  <Instagram size={20} />
+                </a>
+                <a href="https://www.facebook.com/people/Dental-Fix-By-Dr-Asad-Ali/61559132816202/?ref=NONE_xav_ig_profile_page_web#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-primary">
+                  <Facebook size={20} />
+                </a>
+                <a href="https://wa.me/923126963668" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-primary">
+                  <MessageCircle size={20} />
+                </a>
+              </div>
+            </div>
           </motion.div>
         )}
       </nav>
 
       <main>
         {/* Hero Section */}
-        <section className="relative pt-48 pb-32 md:pt-64 md:pb-52 overflow-hidden bg-surface">
-          <div className="absolute top-0 right-0 -z-10 w-1/2 h-full bg-accent/5 rounded-l-[300px] blur-[120px]" />
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-50/50 rounded-full blur-[100px]" />
+        <section className="relative pt-32 pb-20 md:pt-64 md:pb-52 overflow-hidden bg-surface">
+          <div className="absolute top-0 right-0 -z-10 w-full md:w-1/2 h-full bg-accent/5 rounded-l-none md:rounded-l-[300px] blur-[120px]" />
+          <div className="absolute -top-24 -left-24 w-64 h-64 md:w-96 md:h-96 bg-blue-50/50 rounded-full blur-[100px]" />
           
           <div className="container mx-auto px-4 md:px-12">
-            <div className="grid lg:grid-cols-2 gap-24 items-center">
+            <div className="grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: "easeOut" }}
               >
-                <div className="inline-flex items-center gap-3 bg-white/50 backdrop-blur-md border border-white px-6 py-2.5 rounded-full text-[10px] uppercase tracking-[0.3em] font-black text-accent mb-10 shadow-sm">
+                <div className="inline-flex items-center gap-3 bg-white/50 backdrop-blur-md border border-white px-5 md:px-6 py-2 md:py-2.5 rounded-full text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-black text-accent mb-8 md:mb-10 shadow-sm">
                   <Sparkles size={14} className="animate-pulse" />
                   <span>The Pinnacle of Dental Artistry</span>
                 </div>
-                <h1 className="text-6xl md:text-[110px] font-serif font-medium leading-[0.88] mb-10 text-primary tracking-tighter">
+                <h1 className="text-5xl md:text-[110px] font-serif font-medium leading-[0.9] md:leading-[0.88] mb-8 md:mb-10 text-primary tracking-tighter">
                   Precision <br />
-                  <span className="italic font-light text-accent ml-4">Meets</span> <br />
+                  <span className="italic font-light text-accent ml-2 md:ml-4">Meets</span> <br />
                   Elegance
                 </h1>
-                <p className="text-xl text-slate-500 mb-14 max-w-lg leading-relaxed font-light">
+                <p className="text-lg md:text-xl text-slate-500 mb-10 md:mb-14 max-w-lg leading-relaxed font-light">
                   Welcome to Dental Fix, where Dr. Asad Ali redefines oral healthcare through a lens of luxury, comfort, and uncompromising clinical excellence.
                 </p>
                 
-                <div className="flex flex-wrap gap-8">
+                <div className="flex flex-col sm:flex-row gap-4 md:gap-8">
                   <a 
                     href="https://wa.me/923126963668" 
                     target="_blank"
-                    className="group relative flex items-center gap-4 bg-primary text-white px-12 py-6 rounded-full font-bold overflow-hidden transition-all duration-500 shadow-[0_20px_40px_-10px_rgba(15,23,42,0.3)]"
+                    className="group relative flex items-center justify-center sm:justify-start gap-4 bg-primary text-white px-8 md:px-12 py-5 md:py-6 rounded-full font-bold overflow-hidden transition-all duration-500 shadow-[0_20px_40px_-10px_rgba(15,23,42,0.3)]"
                   >
                     <span className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                     <MessageCircle size={22} className="relative z-10 group-hover:text-primary transition-colors" />
-                    <span className="relative z-10 group-hover:text-primary transition-colors uppercase tracking-widest text-xs">Book via WhatsApp</span>
+                    <span className="relative z-10 group-hover:text-primary transition-colors uppercase tracking-widest text-[10px] md:text-xs">Book via WhatsApp</span>
                   </a>
                   <a 
                     href="tel:+923126963668" 
-                    className="flex items-center gap-4 bg-white border border-slate-200 text-primary px-12 py-6 rounded-full font-bold hover:border-accent hover:text-accent transition-all duration-500 uppercase tracking-widest text-xs"
+                    className="flex items-center justify-center sm:justify-start gap-4 bg-white border border-slate-200 text-primary px-8 md:px-12 py-5 md:py-6 rounded-full font-bold hover:border-accent hover:text-accent transition-all duration-500 uppercase tracking-widest text-[10px] md:text-xs"
                   >
                     <Phone size={20} />
                     Call Concierge
                   </a>
                 </div>
 
-                <div className="mt-16 flex items-center gap-8">
-                  <div className="flex -space-x-4">
+                <div className="mt-12 md:mt-16 flex items-center gap-6 md:gap-8">
+                  <div className="flex -space-x-3 md:-space-x-4">
                     {[
                       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=100&h=100",
                       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=100&h=100",
@@ -236,15 +284,15 @@ export default function App() {
                   initial={{ x: 50, opacity: 0 }}
                   whileInView={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.8, duration: 0.8 }}
-                  className="absolute -bottom-12 -right-8 md:-right-12 z-20 glass-card p-10 rounded-[50px] flex items-center gap-8 shadow-2xl"
+                  className="absolute -bottom-10 -right-4 md:-bottom-12 md:-right-12 z-20 glass-card p-6 md:p-10 rounded-[40px] md:rounded-[50px] flex items-center gap-5 md:gap-8 shadow-2xl"
                 >
-                  <div className="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center text-accent shadow-2xl rotate-3">
-                    <Award size={40} strokeWidth={1} />
+                  <div className="w-14 h-14 md:w-20 md:h-20 bg-primary rounded-2xl md:rounded-3xl flex items-center justify-center text-accent shadow-2xl rotate-3">
+                    <Award size={28} className="md:w-[40px] md:h-[40px]" strokeWidth={1} />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-1">Clinical Mastery</p>
-                    <p className="text-3xl font-serif font-bold text-primary">12+ Years</p>
-                    <p className="text-[11px] text-accent font-bold uppercase tracking-widest mt-1">Experience</p>
+                    <p className="text-[8px] md:text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-1">Clinical Mastery</p>
+                    <p className="text-xl md:text-3xl font-serif font-bold text-primary">12+ Years</p>
+                    <p className="text-[9px] md:text-[11px] text-accent font-bold uppercase tracking-widest mt-1">Experience</p>
                   </div>
                 </motion.div>
 
@@ -257,30 +305,30 @@ export default function App() {
         </section>
 
         {/* Services Section */}
-        <section id="services" className="py-40 bg-white relative">
+        <section id="services" className="py-24 md:py-40 bg-white relative">
           <div className="container mx-auto px-4 md:px-12">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-32 gap-12">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 md:mb-32 gap-10 md:gap-12">
               <div className="max-w-3xl">
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="flex items-center gap-4 mb-8"
+                  className="flex items-center gap-4 mb-6 md:mb-8"
                 >
                   <div className="h-px w-12 bg-accent" />
-                  <span className="text-accent font-black tracking-[0.4em] uppercase text-[10px]">Our Specialized Services</span>
+                  <span className="text-accent font-black tracking-[0.4em] uppercase text-[9px] md:text-[10px]">Our Specialized Services</span>
                 </motion.div>
                 <h2 className="text-5xl md:text-8xl font-serif font-medium text-primary leading-[0.9] tracking-tighter">
                   Curated <br />
                   <span className="italic text-accent">Oral</span> Artistry
                 </h2>
               </div>
-              <p className="text-slate-500 max-w-md text-xl font-light leading-relaxed border-l-2 border-accent/20 pl-8">
+              <p className="text-slate-500 max-w-md text-lg md:text-xl font-light leading-relaxed border-l-2 border-accent/20 pl-6 md:pl-8">
                 We blend advanced medical science with an aesthetic eye to deliver results that are as beautiful as they are functional.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {[
                 { title: "Root Canal Mastery", desc: "Specialized endodontic procedures using microscopic precision to save teeth with zero pain.", icon: <Stethoscope size={32} />, img: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=600&h=400" },
                 { title: "Smile Sculpting", desc: "Transformative cosmetic dentistry including veneers and whitening for a Hollywood-standard smile.", icon: <Sparkles size={32} />, img: "https://images.unsplash.com/photo-1445527815219-ecbfec67492e?auto=format&fit=crop&q=80&w=600&h=400" },
@@ -317,16 +365,16 @@ export default function App() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-40 overflow-hidden bg-primary text-white">
+        <section id="about" className="py-24 md:py-40 overflow-hidden bg-primary text-white">
           <div className="container mx-auto px-4 md:px-12">
-            <div className="grid lg:grid-cols-2 gap-32 items-center">
+            <div className="grid lg:grid-cols-2 gap-20 md:gap-32 items-center">
               <div className="relative">
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1 }}
-                  className="relative z-10 rounded-[100px] overflow-hidden border-[1px] border-white/20 shadow-2xl group"
+                  className="relative z-10 rounded-[60px] md:rounded-[100px] overflow-hidden border-[1px] border-white/20 shadow-2xl group"
                 >
                   <img 
                     src="dr-asad.jpg" 
@@ -342,13 +390,13 @@ export default function App() {
                   initial={{ y: 50, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.5 }}
-                  className="absolute -bottom-16 -right-8 md:-right-16 bg-white p-12 rounded-[60px] shadow-2xl max-w-sm z-20"
+                  className="absolute -bottom-10 -right-4 md:-bottom-16 md:-right-16 bg-white p-8 md:p-12 rounded-[40px] md:rounded-[60px] shadow-2xl max-w-[280px] md:max-w-sm z-20"
                 >
-                  <div className="mb-6">
-                    <span className="text-accent font-serif italic text-4xl block mb-1">Dr. Asad Ali</span>
-                    <span className="text-[10px] uppercase tracking-[0.4em] text-slate-400 font-black">Chief Clinical Director</span>
+                  <div className="mb-4 md:mb-6">
+                    <span className="text-accent font-serif italic text-3xl md:text-4xl block mb-1">Dr. Asad Ali</span>
+                    <span className="text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-slate-400 font-black">Chief Clinical Director</span>
                   </div>
-                  <p className="text-slate-500 text-sm leading-relaxed italic">
+                  <p className="text-slate-500 text-xs md:text-sm leading-relaxed italic">
                     "My mission is to marry clinical perfection with an unparalleled patient experience. Every smile we craft is a unique masterpiece."
                   </p>
                 </motion.div>
@@ -406,28 +454,28 @@ export default function App() {
         </section>
 
         {/* Testimonials */}
-        <section id="testimonials" className="py-40 bg-primary text-white relative overflow-hidden">
+        <section id="testimonials" className="py-24 md:py-40 bg-primary text-white relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
-            <div className="absolute top-20 left-10 w-96 h-96 border border-white rounded-full" />
-            <div className="absolute bottom-20 right-10 w-[600px] h-[600px] border border-white rounded-full" />
+            <div className="absolute top-20 left-10 w-64 h-64 md:w-96 md:h-96 border border-white rounded-full" />
+            <div className="absolute bottom-20 right-10 w-80 h-80 md:w-[600px] md:h-[600px] border border-white rounded-full" />
           </div>
           
           <div className="container mx-auto px-4 md:px-12 relative z-10">
-            <div className="text-center max-w-3xl mx-auto mb-32">
+            <div className="text-center max-w-3xl mx-auto mb-20 md:mb-32">
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="flex items-center justify-center gap-4 mb-8"
+                className="flex items-center justify-center gap-4 mb-6 md:mb-8"
               >
                 <div className="h-px w-12 bg-accent" />
-                <span className="text-accent font-black tracking-[0.4em] uppercase text-[10px]">Patient Experiences</span>
+                <span className="text-accent font-black tracking-[0.4em] uppercase text-[9px] md:text-[10px]">Patient Experiences</span>
                 <div className="h-px w-12 bg-accent" />
               </motion.div>
-              <h3 className="text-5xl md:text-8xl font-serif font-medium mb-10 leading-[0.9] tracking-tighter">Voices of <br /><span className="italic text-accent">Satisfaction</span></h3>
+              <h3 className="text-5xl md:text-8xl font-serif font-medium mb-8 md:mb-10 leading-[0.9] tracking-tighter">Voices of <br /><span className="italic text-accent">Satisfaction</span></h3>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-12">
+            <div className="grid lg:grid-cols-3 gap-8 md:gap-12">
               {[
                 { name: "Ahmed Khan", text: "The clinical precision and care provided by Dr. Asad are unparalleled. My root canal was completely painless and the results are perfect.", rating: 5, role: "Business Executive" },
                 { name: "Sana Malik", text: "A truly premium experience. The clinic's hygiene standards and the doctor's aesthetic vision transformed my smile beyond expectations.", rating: 5, role: "Architect" },
@@ -461,22 +509,22 @@ export default function App() {
         </section>
 
         {/* Gallery Section */}
-        <section id="gallery" className="py-40 bg-white">
+        <section id="gallery" className="py-24 md:py-40 bg-white">
           <div className="container mx-auto px-4 md:px-12">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-32 gap-12">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 md:mb-32 gap-10 md:gap-12">
               <div className="max-w-3xl">
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="flex items-center gap-4 mb-8"
+                  className="flex items-center gap-4 mb-6 md:mb-8"
                 >
                   <div className="h-px w-12 bg-accent" />
-                  <span className="text-accent font-black tracking-[0.4em] uppercase text-[10px]">The Atelier of Smiles</span>
+                  <span className="text-accent font-black tracking-[0.4em] uppercase text-[9px] md:text-[10px]">The Atelier of Smiles</span>
                 </motion.div>
                 <h3 className="text-5xl md:text-8xl font-serif font-medium text-primary leading-[0.9] tracking-tighter">State-of-the-Art <br /><span className="italic text-accent">Studio</span></h3>
               </div>
-              <p className="text-slate-500 max-w-md text-xl font-light leading-relaxed border-l-2 border-accent/20 pl-8">
+              <p className="text-slate-500 max-w-md text-lg md:text-xl font-light leading-relaxed border-l-2 border-accent/20 pl-6 md:pl-8">
                 Step into an environment where every detail is calibrated for your serenity and every piece of technology is at the forefront of dental science.
               </p>
             </div>
@@ -519,34 +567,34 @@ export default function App() {
         </section>
 
         {/* Contact / Booking Section */}
-        <section id="contact" className="py-40 bg-surface relative overflow-hidden">
+        <section id="contact" className="py-24 md:py-40 bg-surface relative overflow-hidden">
           <div className="container mx-auto px-4 md:px-12">
-            <div className="grid lg:grid-cols-2 gap-32">
+            <div className="grid lg:grid-cols-2 gap-20 md:gap-32">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <div className="flex items-center gap-4 mb-8">
+                <div className="flex items-center gap-4 mb-6 md:mb-8">
                   <div className="h-px w-12 bg-accent" />
-                  <span className="text-accent font-black tracking-[0.4em] uppercase text-[10px]">Concierge & Bookings</span>
+                  <span className="text-accent font-black tracking-[0.4em] uppercase text-[9px] md:text-[10px]">Concierge & Bookings</span>
                 </div>
-                <h3 className="text-5xl md:text-8xl font-serif font-medium text-primary mb-12 leading-[0.9] tracking-tighter">Begin Your <br /><span className="italic text-accent">Transformation</span></h3>
+                <h3 className="text-5xl md:text-8xl font-serif font-medium text-primary mb-10 md:mb-12 leading-[0.9] tracking-tighter">Begin Your <br /><span className="italic text-accent">Transformation</span></h3>
                 
-                <div className="space-y-12 mt-20">
+                <div className="space-y-10 md:space-y-12 mt-12 md:mt-20">
                   {[
                     { icon: <Phone size={24} />, label: "Direct Line", val: "+92 312 6963668", sub: "Available 10AM - 8PM" },
                     { icon: <Mail size={24} />, label: "Email Inquiry", val: "concierge@dentalfix.pk", sub: "Response within 24 hours" },
                     { icon: <MapPin size={24} />, label: "The Studio", val: "Al-Shafi Hospital, Sahiwal", sub: "Private Parking Available" }
                   ].map((item, i) => (
-                    <div key={i} className="flex gap-8 group">
-                      <div className="w-16 h-16 rounded-3xl bg-white shadow-xl flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
+                    <div key={i} className="flex gap-6 md:gap-8 group">
+                      <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl md:rounded-3xl bg-white shadow-xl flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
                         {item.icon}
                       </div>
                       <div>
-                        <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">{item.label}</p>
-                        <p className="text-2xl font-serif text-primary mb-1">{item.val}</p>
-                        <p className="text-sm text-slate-500">{item.sub}</p>
+                        <p className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">{item.label}</p>
+                        <p className="text-xl md:text-2xl font-serif text-primary mb-1">{item.val}</p>
+                        <p className="text-xs md:text-sm text-slate-500">{item.sub}</p>
                       </div>
                     </div>
                   ))}
@@ -574,59 +622,59 @@ export default function App() {
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="bg-white p-12 md:p-20 rounded-[80px] shadow-2xl border border-slate-100 relative"
+                className="bg-white p-8 md:p-20 rounded-[60px] md:rounded-[80px] shadow-2xl border border-slate-100 relative"
               >
-                <div className="absolute top-12 right-12 text-accent opacity-20">
-                  <Sparkles size={48} strokeWidth={1} />
+                <div className="absolute top-8 right-8 md:top-12 md:right-12 text-accent opacity-20">
+                  <Sparkles size={32} className="md:w-[48px] md:h-[48px]" strokeWidth={1} />
                 </div>
-                <h4 className="text-3xl font-serif text-primary mb-12">Private Appointment Request</h4>
+                <h4 className="text-2xl md:text-3xl font-serif text-primary mb-8 md:mb-12">Private Appointment Request</h4>
                 {isSubmitted ? (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-green-50 p-8 rounded-[40px] text-center"
+                    className="bg-green-50 p-6 md:p-8 rounded-[30px] md:rounded-[40px] text-center"
                   >
-                    <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle2 size={32} />
+                    <div className="w-12 h-12 md:w-16 md:h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                      <CheckCircle2 size={24} className="md:w-[32px] md:h-[32px]" />
                     </div>
-                    <h5 className="text-2xl font-serif text-primary mb-2">Request Received</h5>
-                    <p className="text-slate-500">Our concierge will contact you shortly to confirm your appointment.</p>
+                    <h5 className="text-xl md:text-2xl font-serif text-primary mb-2">Request Received</h5>
+                    <p className="text-sm md:text-slate-500">Our concierge will contact you shortly to confirm your appointment.</p>
                   </motion.div>
                 ) : (
-                  <form className="space-y-8" onSubmit={handleSubmit}>
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div className="space-y-3">
-                        <label className="text-[10px] uppercase tracking-widest font-black text-slate-400 ml-4">Full Name</label>
+                  <form className="space-y-6 md:space-y-8" onSubmit={handleSubmit}>
+                    <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 ml-4">Full Name</label>
                         <input 
                           type="text" 
                           name="fullName"
                           value={formData.fullName}
                           onChange={handleChange}
                           placeholder="e.g. Alexander Pierce" 
-                          className={`w-full px-8 py-6 rounded-full bg-slate-50 border-none focus:ring-2 transition-all placeholder:text-slate-300 ${errors.fullName ? 'focus:ring-red-500 ring-2 ring-red-500/20' : 'focus:ring-accent/20'}`} 
+                          className={`w-full px-6 md:px-8 py-4 md:py-6 rounded-full bg-slate-50 border-none focus:ring-2 transition-all placeholder:text-slate-300 text-sm md:text-base ${errors.fullName ? 'focus:ring-red-500 ring-2 ring-red-500/20' : 'focus:ring-accent/20'}`} 
                         />
-                        {errors.fullName && <p className="text-red-500 text-[10px] uppercase tracking-widest font-bold ml-4">{errors.fullName}</p>}
+                        {errors.fullName && <p className="text-red-500 text-[9px] md:text-[10px] uppercase tracking-widest font-bold ml-4">{errors.fullName}</p>}
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-[10px] uppercase tracking-widest font-black text-slate-400 ml-4">Phone Number</label>
+                      <div className="space-y-2 md:space-y-3">
+                        <label className="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 ml-4">Phone Number</label>
                         <input 
                           type="tel" 
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="+92 300 0000000" 
-                          className={`w-full px-8 py-6 rounded-full bg-slate-50 border-none focus:ring-2 transition-all placeholder:text-slate-300 ${errors.phone ? 'focus:ring-red-500 ring-2 ring-red-500/20' : 'focus:ring-accent/20'}`} 
+                          className={`w-full px-6 md:px-8 py-4 md:py-6 rounded-full bg-slate-50 border-none focus:ring-2 transition-all placeholder:text-slate-300 text-sm md:text-base ${errors.phone ? 'focus:ring-red-500 ring-2 ring-red-500/20' : 'focus:ring-accent/20'}`} 
                         />
-                        {errors.phone && <p className="text-red-500 text-[10px] uppercase tracking-widest font-bold ml-4">{errors.phone}</p>}
+                        {errors.phone && <p className="text-red-500 text-[9px] md:text-[10px] uppercase tracking-widest font-bold ml-4">{errors.phone}</p>}
                       </div>
                     </div>
-                    <div className="space-y-3">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-slate-400 ml-4">Select Service</label>
+                    <div className="space-y-2 md:space-y-3">
+                      <label className="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 ml-4">Select Service</label>
                       <select 
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className="w-full px-8 py-6 rounded-full bg-slate-50 border-none focus:ring-2 focus:ring-accent/20 transition-all text-slate-500 appearance-none"
+                        className="w-full px-6 md:px-8 py-4 md:py-6 rounded-full bg-slate-50 border-none focus:ring-2 focus:ring-accent/20 transition-all text-slate-500 appearance-none text-sm md:text-base"
                       >
                         <option>Cosmetic Smile Design</option>
                         <option>Advanced Implantology</option>
@@ -634,22 +682,22 @@ export default function App() {
                         <option>General Oral Health</option>
                       </select>
                     </div>
-                    <div className="space-y-3">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-slate-400 ml-4">Personal Message</label>
+                    <div className="space-y-2 md:space-y-3">
+                      <label className="text-[9px] md:text-[10px] uppercase tracking-widest font-black text-slate-400 ml-4">Personal Message</label>
                       <textarea 
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
                         rows={4} 
                         placeholder="How can we assist you today?" 
-                        className="w-full px-8 py-6 rounded-[40px] bg-slate-50 border-none focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-slate-300 resize-none"
+                        className="w-full px-6 md:px-8 py-4 md:py-6 rounded-[30px] md:rounded-[40px] bg-slate-50 border-none focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-slate-300 resize-none text-sm md:text-base"
                       ></textarea>
                     </div>
-                    <button type="submit" className="w-full bg-primary text-white py-8 rounded-full font-black uppercase tracking-[0.3em] text-xs hover:bg-accent transition-all duration-500 shadow-2xl shadow-primary/20 group">
+                    <button type="submit" className="w-full bg-primary text-white py-6 md:py-8 rounded-full font-black uppercase tracking-[0.3em] text-[10px] md:text-xs hover:bg-accent transition-all duration-500 shadow-2xl shadow-primary/20 group">
                       Confirm Request
                       <ChevronRight size={18} className="inline-block ml-4 group-hover:translate-x-2 transition-transform" />
                     </button>
-                    <p className="text-center text-[10px] text-slate-400 uppercase tracking-widest">
+                    <p className="text-center text-[9px] md:text-[10px] text-slate-400 uppercase tracking-widest">
                       Your privacy is our priority. All data is encrypted.
                     </p>
                   </form>
@@ -661,20 +709,20 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-32">
+      <footer className="bg-primary text-white py-20 md:py-32">
         <div className="container mx-auto px-4 md:px-12">
-          <div className="grid md:grid-cols-4 gap-20 mb-32">
-            <div className="col-span-2">
-              <div className="flex items-center gap-4 mb-10">
-                <div className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center text-primary">
-                  <Sparkles size={24} />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-20 mb-20 md:mb-32">
+            <div className="sm:col-span-2">
+              <div className="flex items-center gap-4 mb-8 md:mb-10">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-accent rounded-xl md:rounded-2xl flex items-center justify-center text-primary">
+                  <Sparkles size={20} className="md:w-[24px] md:h-[24px]" />
                 </div>
-                <span className="text-3xl font-serif font-medium tracking-tight">Dental Fix</span>
+                <span className="text-2xl md:text-3xl font-serif font-medium tracking-tight">Dental Fix</span>
               </div>
-              <p className="text-slate-400 text-xl font-light leading-relaxed max-w-md mb-12">
+              <p className="text-slate-400 text-lg md:text-xl font-light leading-relaxed max-w-md mb-8 md:mb-12">
                 Redefining the dental experience through clinical excellence and aesthetic mastery. Your journey to a perfect smile begins here.
               </p>
-              <div className="flex gap-6">
+              <div className="flex gap-4 md:gap-6">
                 {[
                   { name: 'Instagram', url: 'https://www.instagram.com/dentalfix_by_dr.asadali/', icon: Instagram },
                   { name: 'Facebook', url: 'https://www.facebook.com/people/Dental-Fix-By-Dr-Asad-Ali/61559132816202/?ref=NONE_xav_ig_profile_page_web#', icon: Facebook },
@@ -686,57 +734,57 @@ export default function App() {
                     href={social.url} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full border border-slate-800 flex items-center justify-center text-slate-500 hover:text-accent hover:border-accent transition-all duration-300 hover:-translate-y-1 group"
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-slate-800 flex items-center justify-center text-slate-500 hover:text-accent hover:border-accent transition-all duration-300 hover:-translate-y-1 group"
                     aria-label={social.name}
                   >
-                    <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                    <social.icon className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform duration-300" />
                   </a>
                 ))}
               </div>
             </div>
             
             <div>
-              <h5 className="text-accent font-black tracking-[0.3em] uppercase text-[10px] mb-10">Navigation</h5>
-              <ul className="space-y-6">
+              <h5 className="text-accent font-black tracking-[0.3em] uppercase text-[9px] md:text-[10px] mb-8 md:mb-10">Navigation</h5>
+              <ul className="space-y-4 md:space-y-6">
                 {['Services', 'About', 'Gallery', 'Testimonials', 'Contact'].map((item) => (
                   <li key={item}>
-                    <a href={`#${item.toLowerCase()}`} className="text-slate-400 hover:text-white transition-colors text-sm font-light uppercase tracking-widest">
+                    <a href={`#${item.toLowerCase()}`} className="text-slate-400 hover:text-white transition-colors text-[11px] md:text-sm font-light uppercase tracking-widest">
                       {item}
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
+            
+            <div>
+              <h5 className="text-accent font-black tracking-[0.3em] uppercase text-[9px] md:text-[10px] mb-8 md:mb-10">Contact</h5>
+              <ul className="space-y-4 md:space-y-6">
+                <li className="text-slate-400 text-[11px] md:text-sm font-light uppercase tracking-widest">Al-Shafi Hospital, Sahiwal</li>
+                <li className="text-slate-400 text-[11px] md:text-sm font-light uppercase tracking-widest">+92 312 6963668</li>
+                <li className="text-slate-400 text-[11px] md:text-sm font-light uppercase tracking-widest">concierge@dentalfix.pk</li>
+              </ul>
+            </div>
 
             <div>
-              <h5 className="text-accent font-black tracking-[0.3em] uppercase text-[10px] mb-10">Studio Hours</h5>
-              <ul className="space-y-6 text-sm font-light tracking-widest uppercase">
-                <li className="flex justify-between border-b border-white/10 pb-4">
+              <h5 className="text-accent font-black tracking-[0.3em] uppercase text-[9px] md:text-[10px] mb-8 md:mb-10">Studio Hours</h5>
+              <ul className="space-y-4 md:space-y-6">
+                <li className="flex justify-between border-b border-slate-800 pb-4 text-[11px] md:text-sm font-light uppercase tracking-widest">
                   <span className="text-slate-500">Mon - Sat</span>
                   <span>10AM - 8PM</span>
                 </li>
-                <li className="flex justify-between border-b border-white/10 pb-4">
+                <li className="flex justify-between border-b border-slate-800 pb-4 text-[11px] md:text-sm font-light uppercase tracking-widest">
                   <span className="text-slate-500">Sunday</span>
                   <span>Appointment Only</span>
                 </li>
               </ul>
-              <div className="mt-12 pt-8 border-t border-white/10">
-                <p className="text-[10px] uppercase tracking-widest font-bold text-slate-500 mb-4">Location</p>
-                <p className="text-sm font-light text-slate-400 leading-relaxed">
-                  Al-Shafi Hospital, Sahiwal<br />
-                  Punjab, Pakistan
-                </p>
-              </div>
             </div>
           </div>
           
-          <div className="pt-20 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-            <p className="text-slate-500 text-[10px] uppercase tracking-[0.4em] font-bold">
-              © 2026 Dental Fix by Dr. Asad Ali. All Rights Reserved.
-            </p>
-            <div className="flex gap-12 text-[10px] uppercase tracking-[0.4em] font-bold text-slate-500">
+          <div className="pt-12 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-[9px] md:text-[10px] text-slate-500 uppercase tracking-[0.3em] font-black">© 2024 Dental Fix. All Rights Reserved.</p>
+            <div className="flex gap-8 text-[9px] md:text-[10px] text-slate-500 uppercase tracking-[0.3em] font-black">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors">Terms</a>
             </div>
           </div>
         </div>
