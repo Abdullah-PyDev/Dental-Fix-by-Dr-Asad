@@ -14,6 +14,7 @@ import {
   CheckCircle2, 
   Instagram, 
   Facebook, 
+  Linkedin,
   Menu, 
   X,
   Stethoscope,
@@ -328,7 +329,7 @@ export default function App() {
                   className="relative z-10 rounded-[100px] overflow-hidden border-[1px] border-white/20 shadow-2xl group"
                 >
                   <img 
-                    src="Dr Asad.jpg" 
+                    src="dr-asad.jpg" 
                     alt="Dr. Asad Ali" 
                     className="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
                     referrerPolicy="no-referrer"
@@ -673,21 +674,22 @@ export default function App() {
               <p className="text-slate-400 text-xl font-light leading-relaxed max-w-md mb-12">
                 Redefining the dental experience through clinical excellence and aesthetic mastery. Your journey to a perfect smile begins here.
               </p>
-              <div className="flex gap-8">
+              <div className="flex gap-6">
                 {[
-                  { name: 'Instagram', url: 'https://www.instagram.com/dentalfix_by_dr.asadali/' },
-                  { name: 'Facebook', url: 'https://www.facebook.com/people/Dental-Fix-By-Dr-Asad-Ali/61559132816202/?ref=NONE_xav_ig_profile_page_web#' },
-                  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/dr-asad-ali' },
-                  { name: 'WhatsApp', url: 'https://wa.me/923126963668' }
+                  { name: 'Instagram', url: 'https://www.instagram.com/dentalfix_by_dr.asadali/', icon: Instagram },
+                  { name: 'Facebook', url: 'https://www.facebook.com/people/Dental-Fix-By-Dr-Asad-Ali/61559132816202/?ref=NONE_xav_ig_profile_page_web#', icon: Facebook },
+                  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/dr-asad-ali', icon: Linkedin },
+                  { name: 'WhatsApp', url: 'https://wa.me/923126963668', icon: MessageCircle }
                 ].map((social) => (
                   <a 
                     key={social.name} 
                     href={social.url} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-[10px] uppercase tracking-widest font-black text-slate-500 hover:text-accent transition-all duration-300 hover:-translate-y-1"
+                    className="w-12 h-12 rounded-full border border-slate-800 flex items-center justify-center text-slate-500 hover:text-accent hover:border-accent transition-all duration-300 hover:-translate-y-1 group"
+                    aria-label={social.name}
                   >
-                    {social.name}
+                    <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                   </a>
                 ))}
               </div>
