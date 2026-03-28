@@ -1,0 +1,5 @@
+{
+  "name": "Dental Fix by Dr. Asad Ali",
+  "description": "Professional & Pain-Free Dental Care in Sahiwal. Best dentist for Root Canal, Teeth Whitening, and more.",
+  "requestFramePermissions": ["geolocation"]
+}
